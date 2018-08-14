@@ -1,0 +1,52 @@
+digraph G {
+  rankdir=TB;
+  node [style="filled", ];
+  2 [label="Decl __retres", fillcolor="#FFEFD5", shape=box, ];
+  4 [label="In1", fillcolor="#FFCA6E", shape=box, ];
+  5 [label="In2", fillcolor="#FFCA6E", shape=box, ];
+  6 [label="In3", fillcolor="#FFCA6E", shape=box, ];
+  7 [label="Out(S___fc_stdin[0])", fillcolor="#FFCA6E", shape=box, ];
+  8 [label="d == 0", fillcolor="#CCCCCC", shape=diamond, ];
+  9 [label="k == 1", fillcolor="#CCCCCC", shape=diamond, ];
+  10 [label="k == 1", fillcolor="#CCCCCC", shape=diamond, ];
+  12 [label="In1", fillcolor="#FFCA6E", shape=box, ];
+  13 [label="Out(S___fc_stdout[0])", fillcolor="#FFCA6E", shape=box, ];
+  14 [label="__retres = 0;", fillcolor="#CCCCCC", shape=box, ];
+  15 [label="goto return_label;", fillcolor="#CCCCCC", shape=doublecircle, ];
+  16 [label="return_label:", fillcolor="#CCCCCC", shape=box, ];
+  17 [label="goto return_label;", fillcolor="#CCCCCC", shape=doublecircle, ];
+  18 [label="goto return_label;", fillcolor="#CCCCCC", shape=doublecircle, ];
+  19 [label="while", fillcolor="#CCCCCC", shape=doublecircle, ];
+  20 [label="i < k", fillcolor="#CCCCCC", shape=diamond, ];
+  21 [label="{}", fillcolor="#CCCCCC", shape=doublecircle, ];
+  22 [label="break;", fillcolor="#CCCCCC", shape=doublecircle, ];
+  23 [label="return_label: return __retres;", fillcolor="#CCCCCC", shape=box, ];
+  24 [label="OutRet", fillcolor="#90EE90", shape=box, ];
+  25 [label="In(\"No solution\"[bits 0 to 95])", fillcolor="#6495ED",
+      shape=box, ];
+  26 [label="In(k)", fillcolor="#6495ED", shape=box, ];
+  27 [label="In(d)", fillcolor="#6495ED", shape=box, ];
+  28 [label="In(ANYTHING(origin:Unknown))", fillcolor="#6495ED", shape=box, ];
+  
+  subgraph cluster_Call1 { label="Call1 : scanf(\"%d %d\",& k,& d);";
+                           fillcolor="#B38B4D"; style="filled"; 7;6;5;4;
+     };
+  subgraph cluster_Call8 { label="Call8 : printf(\"No solution\");";
+                           fillcolor="#B38B4D"; style="filled"; 13;12;
+     };
+  
+  edge [dir=back, ];
+  4 -> 7 [color="#0000FF", ];
+  28 -> 7 [color="#0000FF", ];
+  27 -> 8 [color="#0000FF", ];
+  26 -> 9 [color="#0000FF", ];
+  25 -> 13 [color="#0000FF", ];
+  2 -> 14 [color="#000000", style="dotted", ];
+  16 -> 15 [color="#000000", arrowtail=odot, ];
+  16 -> 17 [color="#000000", arrowtail=odot, ];
+  16 -> 18 [color="#000000", arrowtail=odot, ];
+  2 -> 23 [color="#0000FF", ];
+  14 -> 23 [color="#0000FF", ];
+  23 -> 24 [color="#0000FF", ];
+  
+  }

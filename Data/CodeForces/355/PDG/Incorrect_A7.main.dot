@@ -1,0 +1,60 @@
+digraph G {
+  rankdir=TB;
+  node [style="filled", ];
+  2 [label="Decl k", fillcolor="#FFEFD5", shape=box, ];
+  3 [label="Decl d", fillcolor="#FFEFD5", shape=box, ];
+  4 [label="Decl i", fillcolor="#FFEFD5", shape=box, ];
+  5 [label="Decl flag", fillcolor="#FFEFD5", shape=box, ];
+  6 [label="Decl __retres", fillcolor="#FFEFD5", shape=box, ];
+  8 [label="In1", fillcolor="#FFCA6E", shape=box, ];
+  9 [label="In2", fillcolor="#FFCA6E", shape=box, ];
+  10 [label="In3", fillcolor="#FFCA6E", shape=box, ];
+  11 [label="Out(S___fc_stdin[0])", fillcolor="#FFCA6E", shape=box, ];
+  12 [label="flag = (long long)0;", fillcolor="#CCCCCC", shape=box, ];
+  13 [label="d == (long long)9", fillcolor="#CCCCCC", shape=diamond, ];
+  14 [label="d == (long long)0", fillcolor="#CCCCCC", shape=diamond, ];
+  15 [label="k == (long long)1", fillcolor="#CCCCCC", shape=diamond, ];
+  16 [label="goto _LAND_0;", fillcolor="#CCCCCC", shape=doublecircle, ];
+  17 [label="_LAND_0:", fillcolor="#CCCCCC", shape=box, ];
+  18 [label="goto return_label;", fillcolor="#CCCCCC", shape=doublecircle, ];
+  19 [label="return_label:", fillcolor="#CCCCCC", shape=box, ];
+  20 [label="d == (long long)0", fillcolor="#CCCCCC", shape=diamond, ];
+  21 [label="k > (long long)1", fillcolor="#CCCCCC", shape=diamond, ];
+  22 [label="goto _LAND;", fillcolor="#CCCCCC", shape=doublecircle, ];
+  23 [label="_LAND:", fillcolor="#CCCCCC", shape=box, ];
+  24 [label="{}", fillcolor="#CCCCCC", shape=doublecircle, ];
+  25 [label="while", fillcolor="#CCCCCC", shape=doublecircle, ];
+  26 [label="i < k - (long long)2", fillcolor="#CCCCCC", shape=diamond, ];
+  27 [label="break;", fillcolor="#CCCCCC", shape=doublecircle, ];
+  28 [label="flag == (long long)0", fillcolor="#CCCCCC", shape=diamond, ];
+  29 [label="return_label: return __retres;", fillcolor="#CCCCCC", shape=box, ];
+  30 [label="OutRet", fillcolor="#90EE90", shape=box, ];
+  31 [label="In(ANYTHING(origin:Unknown))", fillcolor="#6495ED", shape=box, ];
+  
+  subgraph cluster_Call1 { label="Call1 : scanf(\"%I64d%I64d\",& k,& d);";
+                           fillcolor="#B38B4D"; style="filled"; 11;10;9;8;
+     };
+  
+  edge [dir=back, ];
+  2 -> 9 [color="#0000FF", ];
+  3 -> 10 [color="#0000FF", ];
+  8 -> 11 [color="#0000FF", ];
+  31 -> 11 [color="#0000FF", ];
+  5 -> 12 [color="#000000", style="dotted", ];
+  3 -> 13 [color="#0000FF", ];
+  3 -> 14 [color="#0000FF", ];
+  2 -> 15 [color="#0000FF", ];
+  17 -> 16 [color="#000000", arrowtail=odot, ];
+  19 -> 18 [color="#000000", arrowtail=odot, ];
+  3 -> 20 [color="#0000FF", ];
+  2 -> 21 [color="#0000FF", ];
+  23 -> 22 [color="#000000", arrowtail=odot, ];
+  24 -> 25 [color="#000000", arrowtail=odot, ];
+  2 -> 26 [color="#0000FF", ];
+  4 -> 26 [color="#0000FF", ];
+  24 -> 26 [color="#000000", arrowtail=odot, ];
+  24 -> 27 [color="#000000", arrowtail=odot, ];
+  5 -> 28 [color="#0000FF", ];
+  6 -> 29 [color="#0000FF", ];
+  
+  }

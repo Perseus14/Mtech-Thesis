@@ -1,0 +1,70 @@
+digraph G {
+  rankdir=TB;
+  node [style="filled", ];
+  2 [label="Decl n", fillcolor="#FFEFD5", shape=box, ];
+  3 [label="Decl k", fillcolor="#FFEFD5", shape=box, ];
+  4 [label="Decl win", fillcolor="#FFEFD5", shape=box, ];
+  5 [label="Decl __retres", fillcolor="#FFEFD5", shape=box, ];
+  6 [label="n = (long long)0;", fillcolor="#CCCCCC", shape=box, ];
+  7 [label="k = (long long)0;", fillcolor="#CCCCCC", shape=box, ];
+  8 [label="win = (long long)0;", fillcolor="#CCCCCC", shape=box, ];
+  10 [label="In1", fillcolor="#FFCA6E", shape=box, ];
+  11 [label="In2", fillcolor="#FFCA6E", shape=box, ];
+  12 [label="In3", fillcolor="#FFCA6E", shape=box, ];
+  13 [label="Out(S___fc_stdin[0])", fillcolor="#FFCA6E", shape=box, ];
+  14 [label="win = n / ((INT64)2 * (k + (INT64)1));", fillcolor="#CCCCCC",
+      shape=box, ];
+  16 [label="In1", fillcolor="#FFCA6E", shape=box, ];
+  17 [label="In2", fillcolor="#FFCA6E", shape=box, ];
+  18 [label="In3", fillcolor="#FFCA6E", shape=box, ];
+  19 [label="In4", fillcolor="#FFCA6E", shape=box, ];
+  20 [label="Out(S___fc_stdout[0])", fillcolor="#FFCA6E", shape=box, ];
+  21 [label="__retres = 0;", fillcolor="#CCCCCC", shape=box, ];
+  22 [label="return __retres;", fillcolor="#CCCCCC", shape=box, ];
+  23 [label="OutRet", fillcolor="#90EE90", shape=box, ];
+  24 [label="In(\"%lld %lld %lld\\n\"[bits 0 to 127])", fillcolor="#6495ED",
+      shape=box, ];
+  25 [label="In(ANYTHING(origin:Unknown))", fillcolor="#6495ED", shape=box, ];
+  
+  subgraph cluster_Call4 { label="Call4 : scanf(\"%lld %lld\",& n,& k);";
+                           fillcolor="#B38B4D"; style="filled"; 13;12;11;10;
+     };
+  subgraph cluster_Call6 { label="Call6 : printf(\"%lld %lld %lld\\n\",win,k * win,n - (k + (INT64)1) * win);";
+                           fillcolor="#B38B4D"; style="filled"; 20;19;18;17;16;
+     };
+  
+  edge [dir=back, ];
+  2 -> 6 [color="#000000", style="dotted", ];
+  3 -> 7 [color="#000000", style="dotted", ];
+  4 -> 8 [color="#000000", style="dotted", ];
+  2 -> 11 [color="#0000FF", ];
+  3 -> 12 [color="#0000FF", ];
+  6 -> 13 [color="#0000FF", ];
+  7 -> 13 [color="#0000FF", ];
+  8 -> 13 [color="#0000FF", ];
+  10 -> 13 [color="#0000FF", ];
+  25 -> 13 [color="#0000FF", ];
+  2 -> 14 [color="#0000FF", ];
+  3 -> 14 [color="#0000FF", ];
+  4 -> 14 [color="#000000", style="dotted", ];
+  6 -> 14 [color="#0000FF", ];
+  7 -> 14 [color="#0000FF", ];
+  4 -> 17 [color="#0000FF", ];
+  14 -> 17 [color="#0000FF", ];
+  3 -> 18 [color="#0000FF", ];
+  4 -> 18 [color="#0000FF", ];
+  7 -> 18 [color="#0000FF", ];
+  14 -> 18 [color="#0000FF", ];
+  2 -> 19 [color="#0000FF", ];
+  3 -> 19 [color="#0000FF", ];
+  4 -> 19 [color="#0000FF", ];
+  6 -> 19 [color="#0000FF", ];
+  7 -> 19 [color="#0000FF", ];
+  14 -> 19 [color="#0000FF", ];
+  24 -> 20 [color="#0000FF", ];
+  5 -> 21 [color="#000000", style="dotted", ];
+  5 -> 22 [color="#0000FF", ];
+  21 -> 22 [color="#0000FF", ];
+  22 -> 23 [color="#0000FF", ];
+  
+  }

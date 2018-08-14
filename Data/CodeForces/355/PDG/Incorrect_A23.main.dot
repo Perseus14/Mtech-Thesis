@@ -1,0 +1,37 @@
+digraph G {
+  rankdir=TB;
+  node [style="filled", ];
+  2 [label="Decl dig", fillcolor="#FFEFD5", shape=box, ];
+  3 [label="Decl sum", fillcolor="#FFEFD5", shape=box, ];
+  4 [label="Decl __retres", fillcolor="#FFEFD5", shape=box, ];
+  6 [label="In1", fillcolor="#FFCA6E", shape=box, ];
+  7 [label="In2", fillcolor="#FFCA6E", shape=box, ];
+  8 [label="In3", fillcolor="#FFCA6E", shape=box, ];
+  9 [label="Out(S___fc_stdin[0])", fillcolor="#FFCA6E", shape=box, ];
+  11 [label="In1", fillcolor="#FFCA6E", shape=box, ];
+  12 [label="In2", fillcolor="#FFCA6E", shape=box, ];
+  13 [label="while", fillcolor="#CCCCCC", shape=doublecircle, ];
+  14 [label="dig > 0", fillcolor="#CCCCCC", shape=diamond, ];
+  15 [label="{}", fillcolor="#CCCCCC", shape=doublecircle, ];
+  16 [label="break;", fillcolor="#CCCCCC", shape=doublecircle, ];
+  17 [label="return __retres;", fillcolor="#CCCCCC", shape=box, ];
+  18 [label="OutRet", fillcolor="#90EE90", shape=box, ];
+  19 [label="In(ANYTHING(origin:Unknown))", fillcolor="#6495ED", shape=box, ];
+  
+  subgraph cluster_Call1 { label="Call1 : scanf(\"%d%d\",& dig,& sum);";
+                           fillcolor="#B38B4D"; style="filled"; 9;8;7;6;
+     };
+  subgraph cluster_Call2 { label="Call2 : /*@ assert Value: initialisation: \\initialized(&sum); */\nprintf(\"%d\",sum);";
+                           fillcolor="#B38B4D"; style="filled"; 12;11;
+     };
+  
+  edge [dir=back, ];
+  2 -> 7 [color="#0000FF", ];
+  3 -> 8 [color="#0000FF", ];
+  6 -> 9 [color="#0000FF", ];
+  19 -> 9 [color="#0000FF", ];
+  3 -> 12 [color="#0000FF", ];
+  2 -> 14 [color="#0000FF", ];
+  4 -> 17 [color="#0000FF", ];
+  
+  }

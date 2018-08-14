@@ -1,0 +1,189 @@
+import os
+from dot_tools import parse
+from dot_tools.dot_graph import SimpleGraph
+import warnings
+import networkx as nx
+from networkx.algorithms import isomorphism
+import igraph as ig
+
+
+def genPDG(file1, file2):
+	os.system("frama-c -pdg -pdg-dot file1 " + file1)
+	os.system("frama-c -pdg -pdg-dot file2 " + file2)
+		
+def DOTParser(pdgfile):
+	with open(pdgfile,"r") as fin:
+		dotStr = fin.read()
+		tree = parse(dotStr)
+		graph = SimpleGraph.build(tree.kid('Graph'))
+	return graph
+
+
+def InitGraph(nodes, edges):
+	G = nx.DiGraph()
+	for node in nodes:
+		G.add_node(node)
+	for edge in edges:
+		G.add_edge(edge[0],edge[1])	
+	return G
+
+def gammaIso(graph1, graph2):
+
+			
+	def KFilter(ig1,ig2,K=10,gamma = 0.9):
+		#Size-Filter
+		if(len(ig1.vs) > K and len(ig2.vs) > K):
+		#Filter based on gamma isomorphism criterion
+			if(len(ig2.vs) >= gamma*(len(ig1.vs))):
+				return True
+		return False 
+
+	nodes_graph1 = graph1.nodes.keys()
+	edges_graph1 = graph1.edges
+
+	nodes_graph2 = graph2.nodes.keys()
+	edges_graph2 = graph2.edges
+			
+	G1 = InitGraph(nodes_graph1,edges_graph1)
+	G2 = InitGraph(nodes_graph2,edges_graph2)
+
+	G1.remove_nodes_from(nx.isolates(G1)) #Drop Isolates (Commenting it out as doing it in igraph) 
+	G2.remove_nodes_from(nx.isolates(G2)) #Drop Isolates
+
+	#Remove self loops
+	self_edge_list = G1.selfloop_edges()
+	for e in self_edge_list:
+		G1.remove_edge(*e)
+
+	self_edge_list = G2.selfloop_edges()
+	for e in self_edge_list:
+		G2.remove_edge(*e)
+
+	ig1 = ig.Graph(len(G1), [ (int(x),int(y)) for x,y in zip(*zip(*nx.to_edgelist(G1))[:2])], directed=True)                            
+	ig2 = ig.Graph(len(G2), [ (int(x),int(y)) for x,y in zip(*zip(*nx.to_edgelist(G2))[:2])], directed=True) 
+
+	ig1.vs.select(_degree = 0).delete() #Drop Isolates
+	ig2.vs.select(_degree = 0).delete() #Drop Isolates
+	
+
+	layout = ig1.layout("kk")
+	ig.plot(ig1, layout = layout)
+	layout = ig2.layout("kk")
+	ig.plot(ig2, layout = layout)
+	'''
+	if(KFilter(ig1, ig2, K=10)):
+		sim = 0
+		if(len(ig1.vs) > len(ig2.vs)):
+			res = ig1.subisomorphic_vf2(ig2,return_mapping_12=True)
+		else:
+			res = ig2.subisomorphic_vf2(ig1,return_mapping_12=True)	
+		if(res[0]):
+			sim = (max(res[1])+1)/float(max(len(ig1.vs), len(ig2.vs))) 	
+			return sim
+	else:
+		return 0
+	'''
+
+def gen_successors(G1, G2):
+	L = []
+	val = int(max(G1.node))
+	for node_id in xrange(val+1):
+		try:
+			L.append(G1.successors(node_id))
+		except:
+			L.append([])
+	with open("pattern_file1.txt","w") as fin:	
+		fin.write("%d\n"%(val+1))
+		for succ in L:          
+			fin.write("%d %s\n"%(len(succ), " ".join([str(int(y)) for y in succ])))	
+	L = []
+	val = int(max(G2.node))
+	for node_id in xrange(val+1):
+		try:
+			L.append(G2.successors(node_id))
+		except:
+			L.append([])
+	with open("pattern_file2.txt","w") as fin:	
+		fin.write("%d\n"%(val+1))
+		for succ in L:          
+			fin.write("%d %s\n"%(len(succ), " ".join([str(int(y)) for y in succ])))	
+	
+def convert_LAD(G1, G2):
+	dict_orig_fake = {}
+	dict_fake_orig = {}
+	count = 0
+	for x in G1.node:
+		dict_orig_fake[x] = count
+		dict_fake_orig[count] = x
+		count+=1
+	new_edge_list = {}
+	for x in xrange(count):
+		new_edge_list[x] = [dict_orig_fake[int(val)] for val in list(G1.edge[dict_fake_orig[x]])]		
+	
+	val = max(dict_fake_orig)
+	with open("pattern_file1.txt","w") as fin:	
+		fin.write("%d\n"%(val+1))
+		for x in xrange(count):          
+			fin.write("%d %s\n"%(len(new_edge_list[x]), " ".join([str(int(y)) for y in new_edge_list[x]])))
+
+	dict_orig_fake = {}
+	dict_fake_orig = {}
+	count = 0
+	for x in G2.node:
+		dict_orig_fake[x] = count
+		dict_fake_orig[count] = x
+		count+=1
+	new_edge_list = {}
+	for x in xrange(count):
+		new_edge_list[x] = [dict_orig_fake[int(val)] for val in list(G2.edge[dict_fake_orig[x]])]		
+	
+	val = max(dict_fake_orig)
+	with open("pattern_file2.txt","w") as fin:	
+		fin.write("%d\n"%(val+1))
+		for x in xrange(count):          
+			fin.write("%d %s\n"%(len(new_edge_list[x]), " ".join([str(int(y)) for y in new_edge_list[x]])))
+
+file1 = '/home/perseus/Sem-9/Thesis/Data/CodeForces/21/Correct/A3.c'
+file2 = '/home/perseus/Sem-9/Thesis/Data/CodeForces/21/Correct/A8.c'
+genPDG("A19.c", "A6.c")
+similarityValue = 0
+#if(os.path.isfile("file1.main.dot") and os.path.isfile("file2.main.dot")): 
+graph1 = DOTParser("file1.main.dot")
+graph2 = DOTParser("file2.main.dot")
+
+gammaIso(graph1, graph2)
+#os.system("rm -f file1.* file2.*")
+
+nodes_graph1 = graph1.nodes.keys()
+edges_graph1 = graph1.edges
+
+nodes_graph2 = graph2.nodes.keys()
+edges_graph2 = graph2.edges
+			
+G1 = InitGraph(nodes_graph1,edges_graph1)
+G2 = InitGraph(nodes_graph2,edges_graph2)
+
+G1.remove_nodes_from(nx.isolates(G1)) #Drop Isolates (Commenting it out as doing it in igraph) 
+G2.remove_nodes_from(nx.isolates(G2)) #Drop Isolates
+
+#Remove self loops
+self_edge_list = G1.selfloop_edges()
+for e in self_edge_list:
+	G1.remove_edge(*e)
+
+self_edge_list = G2.selfloop_edges()
+for e in self_edge_list:
+	G2.remove_edge(*e)
+
+convert_LAD(G1, G2)
+
+
+ig1 = ig.Graph(len(G1), [ (int(x),int(y)) for x,y in zip(*zip(*nx.to_edgelist(G1))[:2])], directed=True)                            
+ig2 = ig.Graph(len(G2), [ (int(x),int(y)) for x,y in zip(*zip(*nx.to_edgelist(G2))[:2])], directed=True) 
+
+ig1.vs.select(_degree = 0).delete() #Drop Isolates
+ig2.vs.select(_degree = 0).delete() #Drop Isolates
+
+#print ig2.subisomorphic_lad(ig1)
+#print ig1.subisomorphic_lad(ig2)	
+

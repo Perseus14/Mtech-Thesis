@@ -1,0 +1,86 @@
+digraph G {
+  rankdir=TB;
+  node [style="filled", ];
+  2 [label="Decl n", fillcolor="#FFEFD5", shape=box, ];
+  3 [label="Decl k", fillcolor="#FFEFD5", shape=box, ];
+  4 [label="Decl dp", fillcolor="#FFEFD5", shape=box, ];
+  5 [label="Decl cer", fillcolor="#FFEFD5", shape=box, ];
+  6 [label="Decl wi", fillcolor="#FFEFD5", shape=box, ];
+  7 [label="Decl __retres", fillcolor="#FFEFD5", shape=box, ];
+  8 [label="n = (unsigned long)0;", fillcolor="#CCCCCC", shape=box, ];
+  9 [label="k = (unsigned long)0;", fillcolor="#CCCCCC", shape=box, ];
+  10 [label="dp = (unsigned long)0;", fillcolor="#CCCCCC", shape=box, ];
+  11 [label="cer = (unsigned long)0;", fillcolor="#CCCCCC", shape=box, ];
+  12 [label="wi = (unsigned long)0;", fillcolor="#CCCCCC", shape=box, ];
+  14 [label="In1", fillcolor="#FFCA6E", shape=box, ];
+  15 [label="In2", fillcolor="#FFCA6E", shape=box, ];
+  16 [label="In3", fillcolor="#FFCA6E", shape=box, ];
+  17 [label="Out(S___fc_stdin[0])", fillcolor="#FFCA6E", shape=box, ];
+  18 [label="wi = n / (unsigned long)2;", fillcolor="#CCCCCC", shape=box, ];
+  19 [label="dp = wi / (k + (unsigned long)1);", fillcolor="#CCCCCC",
+      shape=box, ];
+  20 [label="cer = k * dp;", fillcolor="#CCCCCC", shape=box, ];
+  22 [label="In1", fillcolor="#FFCA6E", shape=box, ];
+  23 [label="In2", fillcolor="#FFCA6E", shape=box, ];
+  24 [label="In3", fillcolor="#FFCA6E", shape=box, ];
+  25 [label="In4", fillcolor="#FFCA6E", shape=box, ];
+  26 [label="Out(S___fc_stdout[0])", fillcolor="#FFCA6E", shape=box, ];
+  27 [label="__retres = 0;", fillcolor="#CCCCCC", shape=box, ];
+  28 [label="return __retres;", fillcolor="#CCCCCC", shape=box, ];
+  29 [label="OutRet", fillcolor="#90EE90", shape=box, ];
+  30 [label="In(\"%ld %ld %ld\\n\"[bits 0 to 103])", fillcolor="#6495ED",
+      shape=box, ];
+  31 [label="In(ANYTHING(origin:Unknown))", fillcolor="#6495ED", shape=box, ];
+  
+  subgraph cluster_Call10 { label="Call10 : printf(\"%ld %ld %ld\\n\",dp,cer,(n - dp) - cer);";
+                            fillcolor="#B38B4D"; style="filled"; 26;25;24;23;22;
+     };
+  subgraph cluster_Call6 { label="Call6 : scanf(\"%ld %ld\",& n,& k);";
+                           fillcolor="#B38B4D"; style="filled"; 17;16;15;14;
+     };
+  
+  edge [dir=back, ];
+  2 -> 8 [color="#000000", style="dotted", ];
+  3 -> 9 [color="#000000", style="dotted", ];
+  4 -> 10 [color="#000000", style="dotted", ];
+  5 -> 11 [color="#000000", style="dotted", ];
+  6 -> 12 [color="#000000", style="dotted", ];
+  2 -> 15 [color="#0000FF", ];
+  3 -> 16 [color="#0000FF", ];
+  8 -> 17 [color="#0000FF", ];
+  9 -> 17 [color="#0000FF", ];
+  10 -> 17 [color="#0000FF", ];
+  11 -> 17 [color="#0000FF", ];
+  12 -> 17 [color="#0000FF", ];
+  14 -> 17 [color="#0000FF", ];
+  31 -> 17 [color="#0000FF", ];
+  2 -> 18 [color="#0000FF", ];
+  6 -> 18 [color="#000000", style="dotted", ];
+  8 -> 18 [color="#0000FF", ];
+  3 -> 19 [color="#0000FF", ];
+  4 -> 19 [color="#000000", style="dotted", ];
+  6 -> 19 [color="#0000FF", ];
+  9 -> 19 [color="#0000FF", ];
+  18 -> 19 [color="#0000FF", ];
+  3 -> 20 [color="#0000FF", ];
+  4 -> 20 [color="#0000FF", ];
+  5 -> 20 [color="#000000", style="dotted", ];
+  9 -> 20 [color="#0000FF", ];
+  19 -> 20 [color="#0000FF", ];
+  4 -> 23 [color="#0000FF", ];
+  19 -> 23 [color="#0000FF", ];
+  5 -> 24 [color="#0000FF", ];
+  20 -> 24 [color="#0000FF", ];
+  2 -> 25 [color="#0000FF", ];
+  4 -> 25 [color="#0000FF", ];
+  5 -> 25 [color="#0000FF", ];
+  8 -> 25 [color="#0000FF", ];
+  19 -> 25 [color="#0000FF", ];
+  20 -> 25 [color="#0000FF", ];
+  30 -> 26 [color="#0000FF", ];
+  7 -> 27 [color="#000000", style="dotted", ];
+  7 -> 28 [color="#0000FF", ];
+  27 -> 28 [color="#0000FF", ];
+  28 -> 29 [color="#0000FF", ];
+  
+  }

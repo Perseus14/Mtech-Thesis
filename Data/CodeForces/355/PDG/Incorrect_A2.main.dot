@@ -1,0 +1,54 @@
+digraph G {
+  rankdir=TB;
+  node [style="filled", ];
+  2 [label="Decl n", fillcolor="#FFEFD5", shape=box, ];
+  3 [label="Decl k", fillcolor="#FFEFD5", shape=box, ];
+  4 [label="Decl i", fillcolor="#FFEFD5", shape=box, ];
+  5 [label="Decl a", fillcolor="#FFEFD5", shape=box, ];
+  6 [label="Decl __retres", fillcolor="#FFEFD5", shape=box, ];
+  8 [label="In1", fillcolor="#FFCA6E", shape=box, ];
+  9 [label="In2", fillcolor="#FFCA6E", shape=box, ];
+  10 [label="In3", fillcolor="#FFCA6E", shape=box, ];
+  11 [label="Out(S___fc_stdin[0])", fillcolor="#FFCA6E", shape=box, ];
+  12 [label="n == 1", fillcolor="#CCCCCC", shape=diamond, ];
+  13 [label="while", fillcolor="#CCCCCC", shape=doublecircle, ];
+  14 [label="i < n - 1", fillcolor="#CCCCCC", shape=diamond, ];
+  15 [label="{}", fillcolor="#CCCCCC", shape=doublecircle, ];
+  16 [label="break;", fillcolor="#CCCCCC", shape=doublecircle, ];
+  17 [label="k == 1", fillcolor="#CCCCCC", shape=diamond, ];
+  18 [label="k == 2", fillcolor="#CCCCCC", shape=diamond, ];
+  19 [label="k == 3", fillcolor="#CCCCCC", shape=diamond, ];
+  20 [label="k == 4", fillcolor="#CCCCCC", shape=diamond, ];
+  21 [label="k == 5", fillcolor="#CCCCCC", shape=diamond, ];
+  22 [label="k == 6", fillcolor="#CCCCCC", shape=diamond, ];
+  23 [label="k == 7", fillcolor="#CCCCCC", shape=diamond, ];
+  24 [label="k == 8", fillcolor="#CCCCCC", shape=diamond, ];
+  25 [label="k == 9", fillcolor="#CCCCCC", shape=diamond, ];
+  26 [label="return __retres;", fillcolor="#CCCCCC", shape=box, ];
+  27 [label="OutRet", fillcolor="#90EE90", shape=box, ];
+  28 [label="In(ANYTHING(origin:Unknown))", fillcolor="#6495ED", shape=box, ];
+  
+  subgraph cluster_Call1 { label="Call1 : scanf(\"%d%d\",& n,& k);";
+                           fillcolor="#B38B4D"; style="filled"; 11;10;9;8;
+     };
+  
+  edge [dir=back, ];
+  2 -> 9 [color="#0000FF", ];
+  3 -> 10 [color="#0000FF", ];
+  8 -> 11 [color="#0000FF", ];
+  28 -> 11 [color="#0000FF", ];
+  2 -> 12 [color="#0000FF", ];
+  2 -> 14 [color="#0000FF", ];
+  4 -> 14 [color="#0000FF", ];
+  3 -> 17 [color="#0000FF", ];
+  3 -> 18 [color="#0000FF", ];
+  3 -> 19 [color="#0000FF", ];
+  3 -> 20 [color="#0000FF", ];
+  3 -> 21 [color="#0000FF", ];
+  3 -> 22 [color="#0000FF", ];
+  3 -> 23 [color="#0000FF", ];
+  3 -> 24 [color="#0000FF", ];
+  3 -> 25 [color="#0000FF", ];
+  6 -> 26 [color="#0000FF", ];
+  
+  }

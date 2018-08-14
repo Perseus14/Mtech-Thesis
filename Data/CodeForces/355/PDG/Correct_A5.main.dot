@@ -1,0 +1,66 @@
+digraph G {
+  rankdir=TB;
+  node [style="filled", ];
+  32 [label="Out(S___fc_stdout[0])", fillcolor="#FFCA6E", shape=box, ];
+  33 [label="__retres = 0;", fillcolor="#CCCCCC", shape=box, ];
+  34 [label="return_label: return __retres;", fillcolor="#CCCCCC", shape=box, ];
+  35 [label="OutRet", fillcolor="#90EE90", shape=box, ];
+  36 [label="In(k)", fillcolor="#6495ED", shape=box, ];
+  37 [label="In(d)", fillcolor="#6495ED", shape=box, ];
+  38 [label="In(ANYTHING(origin:Unknown))", fillcolor="#6495ED", shape=box, ];
+  8 [label="Decl __retres", fillcolor="#FFEFD5", shape=box, ];
+  10 [label="In1", fillcolor="#FFCA6E", shape=box, ];
+  11 [label="In2", fillcolor="#FFCA6E", shape=box, ];
+  12 [label="In3", fillcolor="#FFCA6E", shape=box, ];
+  13 [label="Out(S___fc_stdin[0])", fillcolor="#FFCA6E", shape=box, ];
+  14 [label="k >= d", fillcolor="#CCCCCC", shape=diamond, ];
+  15 [label="d == 0", fillcolor="#CCCCCC", shape=diamond, ];
+  16 [label="k > 1", fillcolor="#CCCCCC", shape=diamond, ];
+  17 [label="while", fillcolor="#CCCCCC", shape=doublecircle, ];
+  18 [label="i < k - 1", fillcolor="#CCCCCC", shape=diamond, ];
+  19 [label="i = 0;", fillcolor="#CCCCCC", shape=box, ];
+  20 [label="break;", fillcolor="#CCCCCC", shape=doublecircle, ];
+  21 [label="while", fillcolor="#CCCCCC", shape=doublecircle, ];
+  22 [label="i < d", fillcolor="#CCCCCC", shape=diamond, ];
+  23 [label="goto return_label;", fillcolor="#CCCCCC", shape=doublecircle, ];
+  24 [label="return_label:", fillcolor="#CCCCCC", shape=box, ];
+  25 [label="break;", fillcolor="#CCCCCC", shape=doublecircle, ];
+  26 [label="i = 0;", fillcolor="#CCCCCC", shape=box, ];
+  27 [label="while", fillcolor="#CCCCCC", shape=doublecircle, ];
+  28 [label="i < k - d", fillcolor="#CCCCCC", shape=diamond, ];
+  29 [label="break;", fillcolor="#CCCCCC", shape=doublecircle, ];
+  31 [label="In1", fillcolor="#FFCA6E", shape=box, ];
+  
+  subgraph cluster_Call1 { label="Call1 : scanf(\"%d%d\",& k,& d);";
+                           fillcolor="#B38B4D"; style="filled"; 13;12;11;10;
+     };
+  subgraph cluster_Call34 { label="Call34 : putchar('\\n');";
+                            fillcolor="#B38B4D"; style="filled"; 31;32;
+     };
+  
+  edge [dir=back, ];
+  31 -> 32 [color="#0000FF", ];
+  8 -> 33 [color="#000000", style="dotted", ];
+  8 -> 34 [color="#0000FF", ];
+  33 -> 34 [color="#0000FF", ];
+  34 -> 35 [color="#0000FF", ];
+  10 -> 13 [color="#0000FF", ];
+  38 -> 13 [color="#0000FF", ];
+  36 -> 14 [color="#0000FF", ];
+  37 -> 14 [color="#0000FF", ];
+  37 -> 15 [color="#0000FF", ];
+  36 -> 16 [color="#0000FF", ];
+  25 -> 21 [color="#000000", arrowtail=odot, ];
+  19 -> 22 [color="#0000FF", ];
+  25 -> 22 [color="#000000", arrowtail=odot, ];
+  37 -> 22 [color="#0000FF", ];
+  24 -> 23 [color="#000000", arrowtail=odot, ];
+  25 -> 25 [color="#000000", arrowtail=odot, ];
+  29 -> 27 [color="#000000", arrowtail=odot, ];
+  26 -> 28 [color="#0000FF", ];
+  29 -> 28 [color="#000000", arrowtail=odot, ];
+  36 -> 28 [color="#0000FF", ];
+  37 -> 28 [color="#0000FF", ];
+  29 -> 29 [color="#000000", arrowtail=odot, ];
+  
+  }

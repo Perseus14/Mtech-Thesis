@@ -1,0 +1,41 @@
+Grading Key
+===========
+
+A. Let's Watch Football			(195)
+-----------------------
+Approach 1 - Closed form solution - 3 marks
+Approach 2 - Binary search - 2 marks
+Approach 3 - Linear search - 1 mark
+
+Test cases - > 75 % - 2 mark
+Test cases - 50 % to 75 % - 1 mark
+Test cases - < 50 % - 0 marks
+
+Grader to use discretion to decide if approach 1 was taken with sufficient clarity.
+
+
+
+B. Diplomas and Certificates	(818)
+----------------------------
+Approach 1 - Closed form solution - 3 marks
+Approach 2 - Simple arithmetic expression - 2.5 marks
+Approach 3 - Arithmetic expression with condition checking - 1.5 marks
+
+Test cases - > 80 % - 2 mark
+Test cases - 60 to 80 - 1.5 mark
+Test cases - 45 to 60 - 1 mark
+Test cases - < 45 - 0marks
+
+
+C. Funky Numbers				(192)
+---------------------------
+Approach 1 - Loop through every num till sqrt(n), if num is traingular, check if n-num is triangular. O(N)- 3 marks
+
+Approach 2 - Two nested loops to calc triangular number and check if sum matches. O(N^2)- 1.5 marks
+
+Approach 3 - Similar to approach 1, but using Binary search to calculate sum and matching. O(NlogN)  - 2.5 marks
+
+
+Test cases - > 75 % - 2 mark
+Test cases - 50 % to 75 % - 1 mark
+Test cases - < 50 % - 0 marks

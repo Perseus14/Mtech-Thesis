@@ -1,0 +1,60 @@
+import os
+import sys
+import glob
+import pickle
+from random import randint
+
+from phases.similarity import Similarity
+from phases.cluster import Cluster
+from phases.marking import Marking
+
+DATA_PATH = "/home/perseus/Sem-9/Thesis/Data/CodeForces/"
+CODE_PATH = "/home/perseus/Sem-9/Thesis/Code/CodeForces/"
+
+def get_cfiles(folder):
+	corr_files = glob.glob(DATA_PATH+folder+"/Correct/*.c")
+	incorr_files = glob.glob(DATA_PATH+folder+"/Incorrect/*.c")
+	temp_files = []
+	for files in corr_files:
+		os.system("gcc -std=c11 -o a.out " + files)
+		if os.path.isfile("a.out"):
+			temp_files.append(files)
+			os.system("rm a.out")
+	corr_files = temp_files
+
+	temp_files = []	
+	for files in incorr_files:
+		os.system("gcc -std=c11 -o a.out " + files)
+		if os.path.isfile("a.out"):
+			temp_files.append(files)
+			os.system("rm a.out")
+	incorr_files = temp_files
+	return corr_files, incorr_files
+def similarityPhase(corrFileList):
+	S = Similarity()
+	similarity_measure_list = S.getSimilarityFromFilesList(corrFileList)	
+	return similarity_measure_list
+
+def clusteringPhase(similarity_measure_list):
+	C = Cluster()
+	cluster_set = C.cluster(similarity_measure_list)
+	C.printCluster()
+	return cluster_set 
+
+def markingPhase(cluster_set, incorrFileList):
+	M = Marking()
+	cluster_set_rep = M.getSetRepresentative(cluster_set)
+	marks = M.grading(incorrFileList)
+	M.printMarks()
+	return marks
+	
+folder = sys.argv[1]
+corr_files, incorr_files = get_cfiles(folder)
+similarity_measure_list = similarityPhase(corr_files)
+cluster_set = clusteringPhase(similarity_measure_list)
+marks = markingPhase(cluster_set, incorr_files)
+
+with open("grades/"+folder+"_values.pickle","wb") as fin:
+	pickle.dump(similarity_measure_list,fin)
+	pickle.dump(cluster_set,fin)
+	pickle.dump(marks,fin)

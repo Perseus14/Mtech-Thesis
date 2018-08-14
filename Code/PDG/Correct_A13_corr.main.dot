@@ -1,0 +1,45 @@
+digraph G {
+  rankdir=TB;
+  node [style="filled", ];
+  2 [label="Decl sum", fillcolor="#FFEFD5", shape=box, ];
+  3 [label="Decl x", fillcolor="#FFEFD5", shape=box, ];
+  4 [label="Decl y", fillcolor="#FFEFD5", shape=box, ];
+  5 [label="Decl n", fillcolor="#FFEFD5", shape=box, ];
+  6 [label="Decl __retres", fillcolor="#FFEFD5", shape=box, ];
+  8 [label="In1", fillcolor="#FFCA6E", shape=box, ];
+  9 [label="In2", fillcolor="#FFCA6E", shape=box, ];
+  10 [label="Out(S___fc_stdin[0])", fillcolor="#FFCA6E", shape=box, ];
+  12 [label="In1", fillcolor="#FFCA6E", shape=box, ];
+  13 [label="In2", fillcolor="#FFCA6E", shape=box, ];
+  14 [label="Out(S___fc_stdin[0])", fillcolor="#FFCA6E", shape=box, ];
+  15 [label="x = sum / ((long long)2 * (n + (long long)1));",
+      fillcolor="#CCCCCC", shape=box, ];
+  16 [label="return __retres;", fillcolor="#CCCCCC", shape=box, ];
+  17 [label="OutRet", fillcolor="#90EE90", shape=box, ];
+  18 [label="In(sum)", fillcolor="#6495ED", shape=box, ];
+  19 [label="In(n)", fillcolor="#6495ED", shape=box, ];
+  20 [label="In(ANYTHING(origin:Unknown))", fillcolor="#6495ED", shape=box, ];
+  
+  subgraph cluster_Call1 { label="Call1 : scanf(\"%lld\",& sum);";
+                           fillcolor="#B38B4D"; style="filled"; 10;9;8;
+     };
+  subgraph cluster_Call2 { label="Call2 : scanf(\"%lld\",& n);";
+                           fillcolor="#B38B4D"; style="filled"; 14;13;12;
+     };
+  
+  edge [dir=back, ];
+  2 -> 9 [color="#0000FF", ];
+  8 -> 10 [color="#0000FF", ];
+  20 -> 10 [color="#0000FF", ];
+  5 -> 13 [color="#0000FF", ];
+  10 -> 14 [label="S___fc_stdin[0]", color="#0000FF", ];
+  12 -> 14 [color="#0000FF", ];
+  20 -> 14 [color="#0000FF", ];
+  2 -> 15 [color="#0000FF", ];
+  3 -> 15 [color="#000000", style="dotted", ];
+  5 -> 15 [color="#0000FF", ];
+  18 -> 15 [color="#0000FF", ];
+  19 -> 15 [color="#0000FF", ];
+  6 -> 16 [color="#0000FF", ];
+  
+  }

@@ -1,0 +1,36 @@
+digraph G {
+  rankdir=TB;
+  node [style="filled", ];
+  2 [label="Decl n", fillcolor="#FFEFD5", shape=box, ];
+  3 [label="Decl k", fillcolor="#FFEFD5", shape=box, ];
+  4 [label="Decl diplomas", fillcolor="#FFEFD5", shape=box, ];
+  5 [label="Decl __retres", fillcolor="#FFEFD5", shape=box, ];
+  7 [label="In1", fillcolor="#FFCA6E", shape=box, ];
+  8 [label="In2", fillcolor="#FFCA6E", shape=box, ];
+  9 [label="In3", fillcolor="#FFCA6E", shape=box, ];
+  10 [label="Out(S___fc_stdin[0])", fillcolor="#FFCA6E", shape=box, ];
+  11 [label="diplomas = (n / (long long)2) / ((long long)1 + k);",
+      fillcolor="#CCCCCC", shape=box, ];
+  12 [label="return __retres;", fillcolor="#CCCCCC", shape=box, ];
+  13 [label="OutRet", fillcolor="#90EE90", shape=box, ];
+  14 [label="In(n)", fillcolor="#6495ED", shape=box, ];
+  15 [label="In(k)", fillcolor="#6495ED", shape=box, ];
+  16 [label="In(ANYTHING(origin:Unknown))", fillcolor="#6495ED", shape=box, ];
+  
+  subgraph cluster_Call1 { label="Call1 : scanf(\"%lld%lld\",& n,& k);";
+                           fillcolor="#B38B4D"; style="filled"; 10;9;8;7;
+     };
+  
+  edge [dir=back, ];
+  2 -> 8 [color="#0000FF", ];
+  3 -> 9 [color="#0000FF", ];
+  7 -> 10 [color="#0000FF", ];
+  16 -> 10 [color="#0000FF", ];
+  2 -> 11 [color="#0000FF", ];
+  3 -> 11 [color="#0000FF", ];
+  4 -> 11 [color="#000000", style="dotted", ];
+  14 -> 11 [color="#0000FF", ];
+  15 -> 11 [color="#0000FF", ];
+  5 -> 12 [color="#0000FF", ];
+  
+  }

@@ -1,0 +1,39 @@
+digraph "Incorrect_A1.c.011t.cfg" {
+overlap=false;
+subgraph "cluster_main" {
+	style="dashed";
+	color="black";
+	label="main ()";
+	fn_2_basic_block_0 [shape=Mdiamond,style=filled,fillcolor=white,label="ENTRY"];
+
+	fn_2_basic_block_1 [shape=Mdiamond,style=filled,fillcolor=white,label="EXIT"];
+
+	fn_2_basic_block_2 [shape=record,style=filled,fillcolor=lightgrey,label="{ FREQ:0 |\<bb\ 2\>:\l\
+|scanf\ (\"%d\ %d\",\ &n,\ &k);\l\
+|k.0\ =\ k;\l\
+|D.2813\ =\ k.0\ +\ 1;\l\
+|t\ =\ D.2813\ *\ 2;\l\
+|n.1\ =\ n;\l\
+|d\ =\ n.1\ /\ t;\l\
+|k.2\ =\ k;\l\
+|c\ =\ k.2\ *\ d;\l\
+|v\ =\ c\ +\ d;\l\
+|n.3\ =\ n;\l\
+|p\ =\ n.3\ -\ v;\l\
+|printf\ (\"%d\ %d\ %d\",\ d,\ c,\ p);\l\
+|D.2817\ =\ 0;\l\
+|n\ =\ \{CLOBBER\};\l\
+|k\ =\ \{CLOBBER\};\l\
+}"];
+
+	fn_2_basic_block_3 [shape=record,style=filled,fillcolor=lightgrey,label="{ FREQ:0 |\<bb\ 3\>:\l\
+|\<L1\>:\l\
+|return\ D.2817;\l\
+}"];
+
+	fn_2_basic_block_0:s -> fn_2_basic_block_2:n [style="solid,bold",color=blue,weight=100,constraint=true, label="[0%]"];
+	fn_2_basic_block_2:s -> fn_2_basic_block_3:n [style="solid,bold",color=blue,weight=100,constraint=true, label="[0%]"];
+	fn_2_basic_block_3:s -> fn_2_basic_block_1:n [style="solid,bold",color=black,weight=10,constraint=true, label="[0%]"];
+	fn_2_basic_block_0:s -> fn_2_basic_block_1:n [style="invis",constraint=true];
+}
+}

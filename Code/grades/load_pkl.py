@@ -1,0 +1,10 @@
+import pickle as pkl
+
+def check(x,y):       
+	for (a1,a2,val) in similarity:
+		if(a1.split("/")[-1]==x and a2.split("/")[-1]==y or a1.split("/")[-1]==y and a2.split("/")[-1]==x ):
+			print (a1,a2,val)
+
+fin = open(raw_input(),"r") 
+similarity = pkl.load(fin)    
+cluster_set = pkl.load(fin) 
